@@ -64,7 +64,7 @@
           Welcome to my Blog
         </header>
         <section>
-          <h1>Some of my interests:</h1>
+          <h1>Some of my intrests:</h1>
           <ul>
             <li>Coding</li>
             <li>Sharing what I've learned</li>
@@ -77,14 +77,15 @@
       &copy; 2015 Code Fellows | Static Blog | Happy Ipsum!
     </footer>
 
-    <script src="vendor/scripts/jquery-2.1.4.js"></script>
-    <script src="vendor/scripts/handlebars.js"></script>
-    <script src="vendor/scripts/marked.js"></script>
-    <script src="scripts/article.js"></script>
-    <script src="scripts/articleView.js"></script>
+    <script src="/vendor/scripts/jquery-2.1.4.js"></script>
+    <script src="/vendor/scripts/handlebars.js"></script>
+    <script src="/vendor/scripts/marked.js"></script>
+    <script src="/scripts/article.js"></script>
+    <script src="/scripts/articleView.js"></script>
     <script>
-      // TODO: What model function do we need to call, to initiate the retrieval of data?
-        Article.fetchAll();
+      // TODO: The fetchAll method call now requires a callback parameter.
+      // What do we want to run WHEN the fetch is done?
+      Article.fetchAll(); // Add an argument to the function call.
     </script>
   </body>
 </html>
