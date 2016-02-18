@@ -61,18 +61,18 @@ Article.numWordsAll = function() {
     return article.body; // Get the total number of words in this article
   })
   .reduce(function(a, b) {
-    return a + b; // Sum up all the values in the collection
-  })
+    return a + " " + b; // Sum up all the values in the collection
+  }).split("").length;
 };
 
 // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
 Article.allAuthors = function() {
-  return Article.all.map(function(article){
+  return Article.all.map(function(article) {
     return article.author;
   })
-  .reduce(function(a, b){
-    return a +b;
-  })// Don't forget to read the docs on map and reduce!
+  .reduce(function(Joe, Susie) {
+    return a + "" + b;
+  }).split("").length;// Don't forget to read the docs on map and reduce!
 };
 
 Article.numWordsByAuthor = function() {
@@ -95,4 +95,5 @@ Article.numWordsByAuthor = function() {
 };
 
 module.Article = Article;
- })(window);
+ })
+ (window);
