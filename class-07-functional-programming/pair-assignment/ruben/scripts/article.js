@@ -1,6 +1,7 @@
 // TODO: Wrap the entire contents of this file in an IIFE.
 // Pass in to the IIFE a module, upon which objects can be attached for later access.
-function Article (opts) {
+(function (module) {
+  function Article (opts) {
   this.author = opts.author;
   this.authorUrl = opts.authorUrl;
   this.title = opts.title;
@@ -8,7 +9,7 @@ function Article (opts) {
   this.body = opts.body;
   this.publishedOn = opts.publishedOn;
 }
-
+});
 Article.all = [];
 
 Article.prototype.toHtml = function() {
@@ -45,27 +46,33 @@ Article.fetchAll = function() {
     Article.loadAll(JSON.parse(localStorage.rawData));
     articleView.initIndexPage();
   } else {
-    $.getJSON('/data/hackerIpsum.json', function(rawData) {
+    $.getJSON('data/hackerIpsum.json', function(rawData) {
       Article.loadAll(rawData);
       localStorage.rawData = JSON.stringify(rawData); // Cache the json, so we don't need to request it next time.
       articleView.initIndexPage();
     });
   }
+  articleView.initIndexPage();
 };
 
 // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
 Article.numWordsAll = function() {
   return Article.all.map(function(article) {
-    return // Get the total number of words in this article
+    return article.body; // Get the total number of words in this article
   })
   .reduce(function(a, b) {
-    return // Sum up all the values in the collection
+    return a + b; // Sum up all the values in the collection
   })
 };
 
 // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
 Article.allAuthors = function() {
-  return // Don't forget to read the docs on map and reduce!
+  return Article.all.map(function(article){
+    return article.author;
+  })
+  .reduce(function(a, b){
+    return a +b;
+  })// Don't forget to read the docs on map and reduce!
 };
 
 Article.numWordsByAuthor = function() {
@@ -74,6 +81,18 @@ Article.numWordsByAuthor = function() {
   return Article.allAuthors().map(function(author) {
     return {
       // someKey: someValOrFunctionCall().map(...).reduce(...), ...
+      name: author,
+      words: Article.all.filter(function(el) {
+           if (el.author === author) {
+             return true } else {
+                 return false
+ }
+       }).reduce(function(start, next) {
+       return start + next.body.split(' ').length;
+       }, 0)
     }
   })
 };
+
+module.Article = Article;
+ })(window);
